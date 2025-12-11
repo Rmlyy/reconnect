@@ -4,6 +4,7 @@ script_version('1.1')
 
 local glob = require "lib.game.globals"
 local prefix = "{0ed2e8}[RECONNECT]:{b9bcbd}"
+local nickname = nil
 
 function main()
   repeat wait(100) until isSampAvailable()
@@ -12,6 +13,8 @@ function main()
   sampAddChatMessage(string.format('%s %s v%s {b9bcbd}by {0ed2e8}%s {b9bcbd}', prefix, ts.name, ts.version, table.concat(ts.authors)))
   sampAddChatMessage(string.format('%s Usage: {0ed2e8}/reconnect <name>', prefix))
   sampRegisterChatCommand("reconnect", reconnect)
+
+  nickname = sampGetPlayerNickname(getPlayerId())
 
   wait(-1)
 end
@@ -25,11 +28,15 @@ end
 
 function reconnect(name)
   if #name == 0 then
-   name = sampGetPlayerNickname(getPlayerId())
+   name = nickname
   else if name:match("%W") or #name < 3 or #name > 20 then
     return sampAddChatMessage(string.format('%s {ff0000}Invalid name.', prefix))
   end
 end
+
+  if name ~= nickname then
+    nickname = name
+  end
 
   ip, port = sampGetCurrentServerAddress()
 
