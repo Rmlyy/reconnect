@@ -2,7 +2,6 @@ script_name('Reconnect')
 script_author('Rmly')
 script_version('1.0')
 
-require 'samp.events'
 local glob = require "lib.game.globals"
 local prefix = "{0ed2e8}[RECONNECT]:{b9bcbd}"
 
@@ -11,9 +10,8 @@ function main()
   local ts = thisScript()
 
   sampAddChatMessage(string.format('%s %s v%s {b9bcbd}by {0ed2e8}%s {b9bcbd}', prefix, ts.name, ts.version, table.concat(ts.authors)))
-  sampAddChatMessage(string.format('%s Usage: {0ed2e8}/recon <name>', prefix))
+  sampAddChatMessage(string.format('%s Usage: {0ed2e8}/reconnect <name>', prefix))
   sampRegisterChatCommand("reconnect", reconnect)
-  sampRegisterChatCommand("recon", reconnect)
 end
 
 function getPlayerId()
